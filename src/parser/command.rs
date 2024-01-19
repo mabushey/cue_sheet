@@ -48,7 +48,7 @@ pub enum Command {
     /// Amount of pre-track silence to add.
     Pregap(Time),
 
-    /// A comment (genre, date, discid, comment).
+    /// A remark/comment (genre, date, discid, comment).
     /// (key,   value)
     Rem(String, String),
 
