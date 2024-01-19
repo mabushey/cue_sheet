@@ -43,7 +43,7 @@ pub struct Tracklist {
     pub discid: Option<String>,
 
     /// Comment of the tracklist.
-    /// Does this need to be a VEC?
+    // Does this need to be a VEC?
     pub comment: Option<String>,
 
 }
@@ -152,9 +152,9 @@ impl TrackFile {
                 }
             }
             Ok(TrackFile {
-                tracks: tracks,
-                name: name,
-                format: format,
+                tracks,
+                name,
+                format,
             })
         } else {
             Err("TrackFile::consume called but no Track command found.".into())
