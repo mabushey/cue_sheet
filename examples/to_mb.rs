@@ -36,26 +36,11 @@ fn perform_conversion(source: &str) -> Result<(), Error> {
     // TODO support multi-cds
     assert_eq!(tracklist.files.len(), 1);
 
-    match tracklist.performer {
-      Some(x) => println!("Album performer: {}", x),
-      None => (),
-    }
-    match tracklist.genre {
-      Some(x) => println!("Album genre: {}", x),
-      None => (),
-    }
-    match tracklist.date {
-      Some(x) => println!("Album date: {}", x),
-      None => (),
-    }
-    match tracklist.discid {
-      Some(x) => println!("Album discid: {}", x),
-      None => (),
-    }
-    match tracklist.comment {
-      Some(x) => println!("Album comment: {}", x),
-      None => (),
-    }
+    if let Some(i) = tracklist.performer { println!("Album performer: {}", i); }
+    if let Some(i) = tracklist.genre { println!("Album genre: {}", i); }
+    if let Some(i) = tracklist.date { println!("Album date: {}", i); }
+    if let Some(i) = tracklist.discid { println!("Album discid: {}", i); }
+    if let Some(i) = tracklist.comment { println!("Album comment: {}", i); }
     let file = tracklist.files.remove(0);
     for ref t in file.tracks {
         let duration = match t.duration.clone() {
