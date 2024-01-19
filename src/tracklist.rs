@@ -32,6 +32,20 @@ pub struct Tracklist {
 
     /// Title of the tracklist.
     pub title: Option<String>,
+
+    /// Genre of the tracklist.
+    pub genre: Option<String>,
+
+    /// Year of the tracklist.
+    pub date: Option<String>,
+
+    /// DiscID of the tracklist.
+    pub discid: Option<String>,
+
+    /// Comment of the tracklist.
+    /// Does this need to be a VEC?
+    pub comment: Option<String>,
+
 }
 
 impl Tracklist {
@@ -41,6 +55,10 @@ impl Tracklist {
 
         let mut performer = None;
         let mut title = None;
+        let mut genre = None;
+        let mut date = None;
+        let mut discid = None;
+        let mut comment = None;
 
         while commands.len() > 0 {
             match commands[0].clone() {
@@ -52,7 +70,14 @@ impl Tracklist {
                     title = Some(t);
                     commands.remove(0);
                 }
-                Command::Rem(_, _) => {
+                Command::Rem(t, d) => {
+                    match t.to_uppercase().as_str() {
+                      "GENRE" => genre = Some(d),
+                      "DATE" => date = Some(d),
+                      "DISCID" => discid = Some(d),
+                      "COMMENT" => comment = Some(d),
+                      _ => (),
+                    }
                     commands.remove(0);
                 }
                 _ => {
@@ -74,6 +99,10 @@ impl Tracklist {
             files: files,
             performer: performer,
             title: title,
+            genre: genre,
+            date: date,
+            discid: discid,
+            comment: comment,
         })
     }
 }
@@ -240,6 +269,11 @@ mod tests {
                             INDEX 01 04:17:52"#;
 
         let tracklist = Tracklist::parse(source).unwrap();
+        assert_eq!(tracklist.genre.unwrap(), "Alternative".to_string());
+        assert_eq!(tracklist.date.unwrap(), "1991".to_string());
+        assert_eq!(tracklist.discid.unwrap(), "860B640B".to_string());
+        assert_eq!(tracklist.comment.unwrap(), "ExactAudioCopy v0.95b4".to_string());
+        assert_eq!(tracklist.performer.unwrap(), "My Bloody Valentine".to_string());
         assert_eq!(tracklist.title.unwrap(), "Loveless".to_string());
 
         let files = tracklist.files;

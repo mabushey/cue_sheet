@@ -48,9 +48,9 @@ pub enum Command {
     /// Amount of pre-track silence to add.
     Pregap(Time),
 
-    /// A remark/comment to be ignored.
+    /// A comment (genre, date, discid, comment).
     /// (key,   value)
-    Rem(String, Token),
+    Rem(String, String),
 
     /// Per-disc or per-track songwriter name for CD-Text data.
     Songwriter(String),
@@ -139,7 +139,7 @@ impl Command {
             "PREGAP" => Ok(Command::Pregap(consume_time(tokens)?)),
             "REM" => Ok(Command::Rem(
                 consume_string(tokens)?,
-                consume_token(tokens)?,
+                consume_string(tokens)?,
             )),
             "SONGWRITER" => Ok(Command::Songwriter(consume_string(tokens)?)),
             "TITLE" => Ok(Command::Title(consume_string(tokens)?)),
