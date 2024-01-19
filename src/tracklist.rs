@@ -96,13 +96,13 @@ impl Tracklist {
         }
 
         Ok(Tracklist {
-            files: files,
-            performer: performer,
-            title: title,
-            genre: genre,
-            date: date,
-            discid: discid,
-            comment: comment,
+            files,
+            performer,
+            title,
+            genre,
+            date,
+            discid,
+            comment,
         })
     }
 }
