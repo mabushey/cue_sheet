@@ -36,11 +36,15 @@ fn perform_conversion(source: &str) -> Result<(), Error> {
     // TODO support multi-cds
     assert_eq!(tracklist.files.len(), 1);
 
-    if let Some(i) = tracklist.performer { println!("Album performer: {}", i); }
-    if let Some(i) = tracklist.genre { println!("Album genre: {}", i); }
-    if let Some(i) = tracklist.date { println!("Album date: {}", i); }
-    if let Some(i) = tracklist.discid { println!("Album discid: {}", i); }
-    if let Some(i) = tracklist.comment { println!("Album comment: {}", i); }
+    println!("{} - {} - {}",
+        tracklist.performer.unwrap_or("[No Artist]".to_string()),
+        tracklist.date.unwrap_or("[No Year]".to_string()),
+        tracklist.title.unwrap_or("[No Album]".to_string())
+    );
+
+    //if let Some(i) = tracklist.genre { println!("Album genre: {}", i); }
+    //if let Some(i) = tracklist.discid { println!("Album discid: {}", i); }
+    //if let Some(i) = tracklist.comment { println!("Album comment: {}", i); }
     let file = tracklist.files.remove(0);
     for ref t in file.tracks {
         let duration = match t.duration.clone() {
