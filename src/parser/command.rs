@@ -95,7 +95,7 @@ impl Command {
     pub(crate) fn consume(tokens: &mut Vec<Token>) -> Result<Command, Error> {
         let keyword = consume_string(tokens)?;
         match keyword.to_uppercase().as_str() {
-            "CATALOG" => Ok(Command::Catalog(format!("{:013}", consume_number(tokens)?))),
+            "CATALOG" => Ok(Command::Catalog(consume_string(tokens)?)),
             "CDTEXTFILE" => Ok(Command::Cdtextfile(consume_string(tokens)?)),
             "FILE" => Ok(Command::File(
                 consume_string(tokens)?,
