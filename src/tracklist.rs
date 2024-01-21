@@ -78,8 +78,8 @@ impl Tracklist {
                       "DATE" => date = Some(d),
                       "DISCID" => discid = Some(d),
                       "COMMENT" => comment = Some(d),
-                      "DISCNUMBER" => discnumber = some(d),
-                      "TOTALDISCS" => totaldiscs = some(d),
+                      "DISCNUMBER" => discnumber = Some(d),
+                      "TOTALDISCS" => totaldiscs = Some(d),
                       _ => (),
                     }
                     commands.remove(0);
