@@ -192,7 +192,7 @@ type Index = (u32, Time);
 
 impl Track {
     fn consume(commands: &mut Vec<Command>) -> Result<Track, Error> {
-        if let Command::Track(track_num, track_type) = commands.remove(0) {
+        if let Command::Track(number, track_type) = commands.remove(0) {
             let mut title = None;
             let mut performer = None;
             let mut index = Vec::new();
@@ -233,12 +233,12 @@ impl Track {
             }
 
             Ok(Track {
-                title: title,
-                track_type: track_type,
+                title,
+                track_type,
                 duration: None,
-                index: index,
-                number: track_num,
-                performer: performer,
+                index,
+                number,
+                performer,
             })
         } else {
             Err("Track::consume called but no Track command found.".into())
