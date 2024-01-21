@@ -75,6 +75,15 @@ impl Time {
       }
     }
 
+    /// Format as `h:mm:ss` or `mm:ss' dropping truncating the remainding frames.
+    pub fn to_string_tiny(&self) -> String {
+      if self.mins > 60 {
+        format!("{}:{:02}:{:02}", self.mins / 60, self.mins % 60, self.secs)
+      } else {
+        format!("{}:{:02}", self.mins, self.secs)
+      }
+    }
+
     /// Returns the "minutes" component of this instance.
     ///
     /// ```
