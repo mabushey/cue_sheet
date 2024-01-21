@@ -46,6 +46,11 @@ pub struct Tracklist {
     // Does this need to be a VEC?
     pub comment: Option<String>,
 
+    /// DiscID of the tracklist.
+    pub discnumber: Option<u8>,
+
+    /// DiscID of the tracklist.
+    pub totaldiscs: Option<u8>,
 }
 
 impl Tracklist {
@@ -78,8 +83,16 @@ impl Tracklist {
                       "DATE" => date = Some(d),
                       "DISCID" => discid = Some(d),
                       "COMMENT" => comment = Some(d),
-                      "DISCNUMBER" => discnumber = Some(d),
-                      "TOTALDISCS" => totaldiscs = Some(d),
+                      "DISCNUMBER" => {
+                        if let Ok(x) = d.parse() {
+                          discnumber = Some(x);
+                        }
+                      },
+                      "TOTALDISCS" => {
+                        if let Ok(x) = d.parse() {
+                          totaldiscs = Some(x);
+                        }
+                      },
                       _ => (),
                     }
                     commands.remove(0);
