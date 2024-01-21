@@ -59,6 +59,8 @@ impl Tracklist {
         let mut date = None;
         let mut discid = None;
         let mut comment = None;
+        let mut discnumber = None;
+        let mut totaldiscs = None;
 
         while commands.len() > 0 {
             match commands[0].clone() {
@@ -76,6 +78,8 @@ impl Tracklist {
                       "DATE" => date = Some(d),
                       "DISCID" => discid = Some(d),
                       "COMMENT" => comment = Some(d),
+                      "DISCNUMBER" => discnumber = some(d),
+                      "TOTALDISCS" => totaldiscs = some(d),
                       _ => (),
                     }
                     commands.remove(0);
@@ -103,6 +107,8 @@ impl Tracklist {
             date,
             discid,
             comment,
+            discnumber,
+            totaldiscs,
         })
     }
 }
