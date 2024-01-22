@@ -24,6 +24,9 @@ use parser::{self, Command, FileFormat, Time, TrackType};
 /// A tracklist provides a more useful representation of the information of a cue sheet.
 #[derive(Clone, Debug)]
 pub struct Tracklist {
+    /// 13 decimal digit UPC/EAN code
+    pub catalog: Option<String>,
+
     /// Files described by the tracklist.
     pub files: Vec<TrackFile>,
 
@@ -58,6 +61,7 @@ impl Tracklist {
     pub fn parse(source: &str) -> Result<Tracklist, Error> {
         let mut commands = parser::parse_cue(source)?;
 
+        let mut catalog = None;
         let mut performer = None;
         let mut title = None;
         let mut genre = None;
@@ -69,6 +73,10 @@ impl Tracklist {
 
         while commands.len() > 0 {
             match commands[0].clone() {
+                Command::Catalog(p) => {
+                    catalog = Some(p);
+                    commands.remove(0);
+                }
                 Command::Performer(p) => {
                     performer = Some(p);
                     commands.remove(0);
@@ -113,6 +121,7 @@ impl Tracklist {
         }
 
         Ok(Tracklist {
+            catalog,
             files,
             performer,
             title,
