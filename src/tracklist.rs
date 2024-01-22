@@ -289,51 +289,170 @@ mod tests {
 
     #[test]
     fn sample() {
-        let source = r#"REM GENRE Alternative
-                        REM DATE 1991
-                        REM DISCID 860B640B
-                        REM COMMENT "ExactAudioCopy v0.95b4"
-                        PERFORMER "My Bloody Valentine"
-                        TITLE "Loveless"
-                        FILE "My Bloody Valentine - Loveless.wav" WAVE
-                          TRACK 01 AUDIO
-                            TITLE "Only Shallow"
-                            PERFORMER "My Bloody Valentine"
-                            INDEX 01 00:00:00
-                          TRACK 02 AUDIO
-                            TITLE "Loomer"
-                            PERFORMER "My Bloody Valentine"
-                            INDEX 01 04:17:52"#;
+        let source = r#"REM GENRE "Progressive Rock"
+REM DATE 1985
+REM DISCID DC0E6811
+REM COMMENT "ExactAudioCopy v0.95b3"
+REM DISCNUMBER 2
+REM TOTALDISCS 2
+CATALOG 0724349703629
+PERFORMER "Marillion"
+TITLE "Misplaced Childhood (CD2: Demo)"
+FILE "Marillion - Misplaced Childhood (CD2).flac" WAVE
+  TRACK 01 AUDIO
+    TITLE "Lady Nina"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801904
+    INDEX 01 00:00:00
+  TRACK 02 AUDIO
+    TITLE "Freaks"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801905
+    INDEX 00 05:47:50
+    INDEX 01 05:50:10
+  TRACK 03 AUDIO
+    TITLE "Kayleigh (Alternate Mix)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801906
+    INDEX 00 09:55:60
+    INDEX 01 09:58:20
+  TRACK 04 AUDIO
+    TITLE "Lavender Blue"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801907
+    INDEX 00 13:57:60
+    INDEX 01 14:01:72
+  TRACK 05 AUDIO
+    TITLE "Heart of Lothian (Extended Mix)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801908
+    INDEX 00 18:23:15
+    INDEX 01 18:24:12
+  TRACK 06 AUDIO
+    TITLE "Pseudo Silk Kimono (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801909
+    INDEX 00 24:10:15
+    INDEX 01 24:18:17
+  TRACK 07 AUDIO
+    TITLE "Kayleigh (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801910
+    INDEX 01 26:29:70
+  TRACK 08 AUDIO
+    TITLE "Lavender (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801911
+    INDEX 01 30:36:20
+  TRACK 09 AUDIO
+    TITLE "Bitter Suite (I. Brief Encounter II. Lost Weekend) (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801912
+    INDEX 01 33:14:10
+    INDEX 02 34:52:55
+  TRACK 10 AUDIO
+    TITLE "Lords of the Backstage (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801913
+    INDEX 01 36:08:70
+  TRACK 11 AUDIO
+    TITLE "Blue Angel (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801914
+    INDEX 01 37:55:50
+  TRACK 12 AUDIO
+    TITLE "Misplaced Rendezvous (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801915
+    INDEX 01 39:42:17
+    INDEX 02 41:01:57
+  TRACK 13 AUDIO
+    TITLE "Heart of Lothian (I. Wide Boy II. Curtain Call) (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801916
+    INDEX 01 41:38:57
+    INDEX 02 44:26:35
+  TRACK 14 AUDIO
+    TITLE "Waterhole (Expresso Bongo) (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801917
+    INDEX 00 45:27:70
+    INDEX 01 45:28:15
+  TRACK 15 AUDIO
+    TITLE "Passing Strangers (I. Mylo II. Perimeter Walk III. Threshold) (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801918
+    INDEX 01 47:28:62
+    INDEX 02 49:40:52
+    INDEX 03 51:28:62
+    INDEX 04 53:45:72
+  TRACK 16 AUDIO
+    TITLE "Childhoods End? (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801919
+    INDEX 01 56:45:67
+  TRACK 17 AUDIO
+    TITLE "White Feather (Album Demo)"
+    PERFORMER "Marillion"
+    ISRC GBAYE9801920
+    INDEX 01 59:09:50"#;
 
         let tracklist = Tracklist::parse(source).unwrap();
-        assert_eq!(tracklist.genre.unwrap(), "Alternative".to_string());
-        assert_eq!(tracklist.date.unwrap(), "1991".to_string());
-        assert_eq!(tracklist.discid.unwrap(), "860B640B".to_string());
-        assert_eq!(tracklist.comment.unwrap(), "ExactAudioCopy v0.95b4".to_string());
-        assert_eq!(tracklist.performer.unwrap(), "My Bloody Valentine".to_string());
-        assert_eq!(tracklist.title.unwrap(), "Loveless".to_string());
+        assert_eq!(tracklist.genre.unwrap(), "Progressive Rock".to_string());
+        assert_eq!(tracklist.date.unwrap(), "1985".to_string());
+        assert_eq!(tracklist.discid.unwrap(), "DC0E6811".to_string());
+        assert_eq!(tracklist.comment.unwrap(), "ExactAudioCopy v0.95b3".to_string());
+        assert_eq!(tracklist.discnumber.unwrap(), 2);
+        assert_eq!(tracklist.totaldiscs.unwrap(), 2);
+        assert_eq!(tracklist.catalog.unwrap(), "0724349703629".to_string());
+        assert_eq!(tracklist.performer.unwrap(), "Marillion".to_string());
+        assert_eq!(tracklist.title.unwrap(), "Misplaced Childhood (CD2: Demo)".to_string());
 
         let files = tracklist.files;
         assert_eq!(files.len(), 1);
 
         let ref f = files[0];
-        assert_eq!(f.name, "My Bloody Valentine - Loveless.wav".to_string());
+        assert_eq!(f.name, "Marillion - Misplaced Childhood (CD2).flac".to_string());
         assert_eq!(f.format, FileFormat::Wave);
 
         let ref tracks = f.tracks;
-        assert_eq!(tracks.len(), 2);
+        assert_eq!(tracks.len(), 17);
 
-        assert_eq!(tracks[0].clone().title.unwrap(), "Only Shallow".to_string());
-        assert_eq!(tracks[0].track_type, TrackType::Audio);
-        assert_eq!(tracks[0].duration, Some(Time::new(4, 17, 52)));
         assert_eq!(tracks[0].number, 1);
-        assert_eq!(tracks[0].performer, Some("My Bloody Valentine".to_string()));
+        assert_eq!(tracks[0].track_type, TrackType::Audio);
+        assert_eq!(tracks[0].title, Some("Lady Nina".to_string()));
+        assert_eq!(tracks[0].performer, Some("Marillion".to_string()));
+        assert_eq!(tracks[0].isrc, Some("GBAYE9801904".to_string()));
+        //index 1
+        assert_eq!(tracks[0].duration, Some(Time::new(5, 47, 50)));
 
-        assert_eq!(tracks[1].clone().title.unwrap(), "Loomer".to_string());
-        assert_eq!(tracks[1].track_type, TrackType::Audio);
-        assert_eq!(tracks[1].duration, None);
         assert_eq!(tracks[1].number, 2);
-        assert_eq!(tracks[1].performer, Some("My Bloody Valentine".to_string()));
+        assert_eq!(tracks[1].track_type, TrackType::Audio);
+        assert_eq!(tracks[1].title, Some("Freaks".to_string()));
+        assert_eq!(tracks[1].performer, Some("Marillion".to_string()));
+        assert_eq!(tracks[1].isrc, Some("GBAYE9801905".to_string()));
+        //index 0
+        //index 1
+        //assert_eq!(tracks[0].duration, Some(Time::new(4, 5, 50)));
+
+        assert_eq!(tracks[14].number, 15);
+        assert_eq!(tracks[14].track_type, TrackType::Audio);
+        assert_eq!(tracks[14].title, Some("Passing Strangers (I. Mylo II. Perimeter Walk III. Threshold) (Album Demo)".to_string()));
+        assert_eq!(tracks[14].performer, Some("Marillion".to_string()));
+        assert_eq!(tracks[14].isrc, Some("GBAYE9801918".to_string()));
+        //index 1
+        //index 2
+        //index 3
+        //index 4
+        //assert_eq!(tracks[0].duration, Some(Time::new(9, 17, 5)));
+
+        assert_eq!(tracks[15].number, 16);
+        assert_eq!(tracks[15].track_type, TrackType::Audio);
+        assert_eq!(tracks[15].title, Some("Childhoods End? (Album Demo)".to_string()));
+        assert_eq!(tracks[15].performer, Some("Marillion".to_string()));
+        assert_eq!(tracks[15].isrc, Some("GBAYE9801919".to_string()));
+        //index 1
+        //assert_eq!(tracks[0].duration, Some(Time::new(2, 28, 63)));
     }
 
     #[test]
