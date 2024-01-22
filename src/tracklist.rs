@@ -205,6 +205,9 @@ pub struct Track {
 
     /// The performer of the track if any was stated.
     pub performer: Option<String>,
+
+    /// International Standard Recording Code of this track
+    pub isrc: Option<String>,
 }
 
 type Index = (u32, Time);
@@ -214,6 +217,7 @@ impl Track {
         if let Command::Track(number, track_type) = commands.remove(0) {
             let mut title = None;
             let mut performer = None;
+            let mut isrc = None;
             let mut index = Vec::new();
 
             while commands.len() > 0 {
@@ -224,6 +228,10 @@ impl Track {
                     }
                     Command::Title(t) => {
                         title = Some(t);
+                        commands.remove(0);
+                    }
+                    Command::Isrc(t) => {
+                        isrc = Some(t);
                         commands.remove(0);
                     }
                     Command::Pregap(time) => {
@@ -258,6 +266,7 @@ impl Track {
                 index,
                 number,
                 performer,
+                isrc,
             })
         } else {
             Err("Track::consume called but no Track command found.".into())
