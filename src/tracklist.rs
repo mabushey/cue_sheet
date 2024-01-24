@@ -157,7 +157,8 @@ impl TrackFile {
             while commands.len() > 0 {
                 if let Ok(track) = Track::consume(commands) {
                     if track.index.len() > 0 {
-                        let time = track.index[track.index.len() - 1].clone();
+                        // INDEX 01 is required and the start of the track
+                        let time = track.index.clone().into_iter().find(|a| a.0 == 1).unwrap();
 
                         if let Some(start) = last_time {
                             let stop = track.index[0].clone().1;
@@ -433,19 +434,18 @@ FILE "Marillion - Misplaced Childhood (CD2).flac" WAVE
         assert_eq!(tracks[1].isrc, Some("GBAYE9801905".to_string()));
         assert_eq!(tracks[1].index[0], (0, Time::new(5, 47, 50)));
         assert_eq!(tracks[1].index[1], (1, Time::new(5, 50, 10)));
-        //assert_eq!(tracks[0].duration, Some(Time::new(4, 5, 50)));
+        assert_eq!(tracks[1].duration, Some(Time::new(4, 5, 50)));
 
         assert_eq!(tracks[14].number, 15);
         assert_eq!(tracks[14].track_type, TrackType::Audio);
         assert_eq!(tracks[14].title, Some("Passing Strangers (I. Mylo II. Perimeter Walk III. Threshold) (Album Demo)".to_string()));
         assert_eq!(tracks[14].performer, Some("Marillion".to_string()));
         assert_eq!(tracks[14].isrc, Some("GBAYE9801918".to_string()));
-
         assert_eq!(tracks[14].index[0], (1, Time::new(47, 28, 62)));
         assert_eq!(tracks[14].index[1], (2, Time::new(49, 40, 52)));
         assert_eq!(tracks[14].index[2], (3, Time::new(51, 28, 62)));
         assert_eq!(tracks[14].index[3], (4, Time::new(53, 45, 72)));
-        //assert_eq!(tracks[0].duration, Some(Time::new(9, 17, 5)));
+        assert_eq!(tracks[14].duration, Some(Time::new(9, 17, 5)));
 
         assert_eq!(tracks[15].number, 16);
         assert_eq!(tracks[15].track_type, TrackType::Audio);
@@ -453,7 +453,7 @@ FILE "Marillion - Misplaced Childhood (CD2).flac" WAVE
         assert_eq!(tracks[15].performer, Some("Marillion".to_string()));
         assert_eq!(tracks[15].isrc, Some("GBAYE9801919".to_string()));
         assert_eq!(tracks[15].index[0], (1, Time::new(56, 45, 67)));
-        //assert_eq!(tracks[0].duration, Some(Time::new(2, 28, 63)));
+        assert_eq!(tracks[15].duration, Some(Time::new(2, 23, 58)));
     }
 
     #[test]
