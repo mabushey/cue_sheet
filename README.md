@@ -1,13 +1,5 @@
-# cue_sheet: Discontinued
-Thank you for your interest in this project.  
-This project is no longer updated or maintained and this repository will be archived.
-
-## Old readme:
-[![current version](https://meritbadge.herokuapp.com/cue_sheet)](https://crates.io/crates/cue_sheet)
-[![docs link](https://docs.rs/cue_sheet/badge.svg)](https://docs.rs/cue_sheet/)
-[![build status](https://travis-ci.org/leoschwarz/cue_sheet.svg?branch=master)](https://travis-ci.org/leoschwarz/cue_sheet)
-
-**Status**: Passive maintenance, consider the cue crate ([crates.io](https://crates.io/crates/cue), [repository](https://github.com/mistydemeo/libcue.rs)) which provides bindings to libcue, for security reasons a pure-Rust implementation might be interesting, however this one is not feature complete.
+# cue_sheet status
+leoschwarz/cue_sheet has been discontinued. This fork has added several missing features. If you find any problems or have suggestions, need help, etc, just create a Github issue. Pull requests are welcome, especially for code cleanup or simplification.
 
 This crate implements Cue Sheet parsing for Rust.
 
